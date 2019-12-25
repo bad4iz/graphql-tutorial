@@ -1,6 +1,25 @@
 const graphql = require('graphql');
 
 const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
+/*
+// All IDs set automatically by mLab
+// Don't forget to update after creation
+const directorsJson = [
+  { "name": "Quentin Tarantino", "age": 55 }, // 5e0341b61c9d4400001f1eb0
+  { "name": "Michael Radford", "age": 72 }, // 5e03421d1c9d44000039da1d
+  { "name": "James McTeigue", "age": 51 }, // 5e0342321c9d44000039da1e
+  { "name": "Guy Ritchie", "age": 50 }, // 5e0342451c9d44000039da1f
+];
+// directorId - it is ID from the directors collection
+const moviesJson = [
+
+
+
+
+
+  ,
+
+];
 
 const movies = [
   { id: '1', name: 'Pulp Fiction', genre: 'Crime', directorId: '1', },
@@ -19,6 +38,7 @@ const directors = [
   { id: '3', name: 'James McTeigue', age: 51 },
   { id: '4', name: 'Guy Ritchie', age: 50 },
 ];
+ */
 
 const MovieType = new GraphQLObjectType({
   name: 'Movie',
