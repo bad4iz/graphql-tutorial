@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull } = graphql;
+const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLBoolean } = graphql;
 
 const Movies = require('../models/movie');
 const Directors = require('../models/director');
@@ -11,6 +11,8 @@ const MovieType = new GraphQLObjectType({
     id: {type: GraphQLID},
     name: {type: GraphQLString},
     genre: {type: GraphQLString},
+    rate: { type: GraphQLInt },
+    watched: {type: GraphQLBoolean},
     director: {
       type: DirectorType,
       resolve(parent, args) {
@@ -59,6 +61,8 @@ const Mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         genre: { type: GraphQLString },
+        rate: { type: GraphQLInt },
+        watched: {type: GraphQLBoolean},
         directorId: { type: GraphQLID },
       },
       resolve(parent, args) {
@@ -66,6 +70,8 @@ const Mutation = new GraphQLObjectType({
           name: args.name,
           genre: args.genre,
           directorId: args.directorId,
+          rate: args.rate,
+          watched: args.watched,
         });
         return movie.save();
       },
@@ -106,11 +112,21 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
         directorId: { type: GraphQLID },
+        rate: { type: GraphQLInt },
+        watched: {type: GraphQLBoolean},
       },
       resolve(parent, args) {
         return Movies.findByIdAndUpdate(
           args.id,
-          { $set: { name: args.name, genre: args.genre, directorId: args.directorId } },
+          { $set:
+              {
+                name: args.name,
+                genre: args.genre,
+                directorId: args.directorId,
+                rate: args.rate,
+                watched: args.watched,
+              }
+          },
           { new: true },
         );
       },
